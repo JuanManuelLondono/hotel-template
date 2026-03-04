@@ -11,7 +11,7 @@ public class HotelTemplateApplication {
 	public static void main(String[] args) {
 
 		Dotenv dotenv = Dotenv.configure()
-                .ignoreIfMissing() // No falla si no existe (útil en producción)
+                .ignoreIfMissing() 
                 .load();
 
         dotenv.entries().forEach(entry ->
