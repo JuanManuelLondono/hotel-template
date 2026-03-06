@@ -62,7 +62,7 @@ public class Room {
 
     @Builder.Default
     @Column(name = "is_active")
-    private boolean isActive = true;
+    private boolean active = true;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

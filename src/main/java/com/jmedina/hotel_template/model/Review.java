@@ -95,12 +95,12 @@ public class Review {
     // se marca true automáticamente si el usuario tiene una reserva CHECKED_OUT en este hotel
     @Builder.Default
     @Column(name = "is_verified_stay")
-    private boolean isVerifiedStay = false;
+    private boolean verifiedStay = false;
 
     // Moderación — el admin puede ocultar reseñas inapropiadas sin eliminarlas
     @Builder.Default
     @Column(name = "is_visible")
-    private boolean isVisible = true;
+    private boolean visible = true;
 
     // Cuántas personas encontraron útil esta reseña
     @Builder.Default

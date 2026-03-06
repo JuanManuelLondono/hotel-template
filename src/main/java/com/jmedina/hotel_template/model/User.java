@@ -53,7 +53,7 @@ public class User {
 
     @Builder.Default
     @Column(name = "is_active")
-    private boolean isActive = true;
+    private boolean active = true;
 
     // -------------------------------------------------------
     // RELACIONES

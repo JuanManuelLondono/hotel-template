@@ -97,7 +97,7 @@ public class Hotel {
 
     @Builder.Default
     @Column(name = "is_active")
-    private boolean isActive = true;
+    private boolean active = true;
 
     @Column(name = "check_in_time", length = 10)
     private String checkInTime; // ej: "15:00" — se muestra en la página del hotel

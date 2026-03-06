@@ -59,7 +59,7 @@ public class Gallery {
     // Solo las fotos activas se muestran en el frontend
     @Builder.Default
     @Column(name = "is_active")
-    private boolean isActive = true;
+    private boolean active = true;
 
     // Dimensiones de la imagen 
     // para reservar el espacio antes de que cargue (se evita el layout shift)
