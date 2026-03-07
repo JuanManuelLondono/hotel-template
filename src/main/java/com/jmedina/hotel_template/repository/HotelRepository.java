@@ -22,4 +22,6 @@ public interface HotelRepository extends JpaRepository<Hotel, Long>{
 
     // Obtener hotel activo por id — para las páginas públicas
     Optional<Hotel> findByIdAndActiveTrue(Long id);
+
+    List<Hotel> findByActiveTrueOrderByAverageRatingDesc();
 }
