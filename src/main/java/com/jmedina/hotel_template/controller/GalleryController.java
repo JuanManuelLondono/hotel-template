@@ -55,7 +55,9 @@ public class GalleryController {
     }
 
     // POST /api/gallery/hotel/{hotelId}/upload — solo ADMIN
-    @PostMapping("/hotel/{hotelId}/upload")
+    @PostMapping(value = "/hotel/{hotelId}/upload",
+                consumes = "multipart/form-data"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponseDTO<GalleryResponseDTO>> upload(
             @PathVariable Long hotelId,
@@ -63,9 +65,12 @@ public class GalleryController {
             @RequestParam(required = false) Long roomTypeId,
             @RequestParam(required = false) String altText,
             @RequestParam(required = false) String caption,
-            @RequestParam(required = false, defaultValue = "GENERAL") String category
+            @RequestParam(required = false, defaultValue = "GENERAL") String category,
+            jakarta.servlet.http.HttpServletRequest request
     ) throws IOException {
 
+        System.out.println("Content-Type: " + request.getContentType());
+        
         // 1. Subir a Cloudinary
         Map<String, Object> uploadResult = cloudinaryService.uploadImage(file, "hotels/" + hotelId);
 

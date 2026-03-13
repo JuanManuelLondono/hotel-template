@@ -32,17 +32,22 @@ public class JwtService {
     }
 
     // Genera un token con claims extra (ej: rol del usuario)
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails){
+    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+    long now = System.currentTimeMillis();
+    long expiration = now + jwtExpiration;
+    
+    System.out.println("Ahora: " + now);
+    System.out.println("Expira: " + expiration);
+    System.out.println("Diferencia: " + (expiration - now));
 
-        return Jwts.builder()
-                .claims(extraClaims)
-                .subject(userDetails.getUsername())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis()))
-                .signWith(getSigningKey())
-                .compact();
-
-    }
+    return Jwts.builder()
+            .claims(extraClaims)
+            .subject(userDetails.getUsername())
+            .issuedAt(new Date(now))
+            .expiration(new Date(expiration))
+            .signWith(getSigningKey())
+            .compact();
+}
 
     // Verifica si el token es válido para ese usuario
     public boolean isTokenValid(String token, UserDetails userDetails){

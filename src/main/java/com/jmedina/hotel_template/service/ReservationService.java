@@ -31,6 +31,7 @@ public class ReservationService {
     private final UserRepository userRepository;
 
     // Reservas del usuario autenticado
+    @Transactional
     public List<ReservationResponseDTO> findByUser(Long userId) {
         return reservationRepository.findByUserIdOrderByCreatedAtDesc(userId)
                 .stream()
@@ -39,6 +40,7 @@ public class ReservationService {
     }
 
     // Reservas de un hotel — para el panel admin
+    @Transactional
     public List<ReservationResponseDTO> findByHotel(Long hotelId) {
         return reservationRepository.findByHotelId(hotelId)
                 .stream()
@@ -47,6 +49,7 @@ public class ReservationService {
     }
 
     // Buscar por código — para consulta del cliente
+    @Transactional
     public ReservationResponseDTO findByCode(String code) {
         Reservation reservation = reservationRepository.findByReservationCode(code)
                 .orElseThrow(() -> new EntityNotFoundException("Reserva no encontrada con código: " + code));

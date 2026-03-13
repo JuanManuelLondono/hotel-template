@@ -30,6 +30,7 @@ public class ReviewService {
     private final HotelService hotelService;
 
     // Reseñas visibles de un hotel
+    @Transactional
     public List<ReviewResponseDTO> findByHotel(Long hotelId) {
         return reviewRepository.findByHotelIdAndVisibleTrueOrderByCreatedAtDesc(hotelId)
                 .stream()

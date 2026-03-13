@@ -73,7 +73,10 @@ public class Hotel {
     @Column(nullable = false)
     private Double longitude;
 
-    @Pattern(regexp = "^\\+?[0-9\\-()]{7,20}$", message = "Número de teléfono inválido")
+    @Pattern(
+    regexp = "^[+]?[\\d\\s\\-().]{7,20}$",
+    message = "Número de teléfono inválido"
+    )
     @Column(length = 30)
     private String phone;
 

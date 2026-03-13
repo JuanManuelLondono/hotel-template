@@ -32,6 +32,7 @@ public class RoomTypeService {
     private final RoomRepository roomRepository;
 
     // Tipos activos de un hotel — para la página pública
+    @Transactional
     public List<RoomTypeResponseDTO> findByHotel(Long hotelId) {
         return roomTypeRepository.findByHotelIdAndActiveTrue(hotelId)
                 .stream()
@@ -40,6 +41,7 @@ public class RoomTypeService {
     }
 
     // Obtener un tipo por ID
+    @Transactional
     public RoomTypeResponseDTO findById(Long id) {
         RoomType roomType = roomTypeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Tipo de habitación no encontrado con id: " + id));

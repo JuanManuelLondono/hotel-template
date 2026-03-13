@@ -45,6 +45,10 @@ public class SecurityConfig {
             // Configurar CORS
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
+            .headers(headers -> headers
+            .frameOptions(frame -> frame.disable())
+            )
+
             // Definir qué rutas son públicas y cuáles requieren autenticación
             .authorizeHttpRequests(auth -> auth
 
@@ -55,6 +59,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/reviews/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/gallery/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/amenities/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/reservations/code/**").permitAll()
+                .requestMatchers(HttpMethod.PATCH, "/api/reservations/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/gallery/**").hasRole("ADMIN")
 
                 // Rutas de admin — solo ADMIN puede acceder
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
