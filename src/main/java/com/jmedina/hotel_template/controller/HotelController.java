@@ -25,16 +25,14 @@ public class HotelController {
     @GetMapping
     public ResponseEntity<ApiResponseDTO<List<HotelSummaryDTO>>> findAll() {
         return ResponseEntity.ok(
-            ApiResponseDTO.ok(hotelService.findAllActive(), "Hoteles obtenidos")
-        );
+                ApiResponseDTO.ok(hotelService.findAllActive(), "Hoteles obtenidos"));
     }
 
     // GET /api/hotels/{id} — público
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponseDTO<HotelResponseDTO>> findById(@PathVariable Long id) {
         return ResponseEntity.ok(
-            ApiResponseDTO.ok(hotelService.findById(id), "Hotel obtenido")
-        );
+                ApiResponseDTO.ok(hotelService.findById(id), "Hotel obtenido"));
     }
 
     // GET /api/hotels/city/{city} — público
@@ -42,16 +40,14 @@ public class HotelController {
     public ResponseEntity<ApiResponseDTO<List<HotelSummaryDTO>>> findByCity(
             @PathVariable String city) {
         return ResponseEntity.ok(
-            ApiResponseDTO.ok(hotelService.findByCity(city), "Hoteles encontrados")
-        );
+                ApiResponseDTO.ok(hotelService.findByCity(city), "Hoteles encontrados"));
     }
 
     // GET /api/hotels/top-rated — público
     @GetMapping("/top-rated")
     public ResponseEntity<ApiResponseDTO<List<HotelSummaryDTO>>> findTopRated() {
         return ResponseEntity.ok(
-            ApiResponseDTO.ok(hotelService.findTopRated(), "Hoteles mejor calificados")
-        );
+                ApiResponseDTO.ok(hotelService.findTopRated(), "Hoteles mejor calificados"));
     }
 
     // POST /api/hotels — solo ADMIN
@@ -62,8 +58,8 @@ public class HotelController {
 
         HotelResponseDTO created = hotelService.create(dto);
         return ResponseEntity
-            .status(HttpStatus.CREATED)
-            .body(ApiResponseDTO.ok(created, "Hotel creado exitosamente"));
+                .status(HttpStatus.CREATED)
+                .body(ApiResponseDTO.ok(created, "Hotel creado exitosamente"));
     }
 
     // PUT /api/hotels/{id} — solo ADMIN
@@ -74,8 +70,7 @@ public class HotelController {
             @Valid @RequestBody HotelRequestDTO dto) {
 
         return ResponseEntity.ok(
-            ApiResponseDTO.ok(hotelService.update(id, dto), "Hotel actualizado")
-        );
+                ApiResponseDTO.ok(hotelService.update(id, dto), "Hotel actualizado"));
     }
 
     // DELETE /api/hotels/{id} — solo ADMIN
@@ -84,5 +79,17 @@ public class HotelController {
     public ResponseEntity<ApiResponseDTO<Void>> deactivate(@PathVariable Long id) {
         hotelService.deactivate(id);
         return ResponseEntity.ok(ApiResponseDTO.ok(null, "Hotel desactivado"));
+    }
+
+    // PATCH /api/hotels/{id}/cover-image — solo ADMIN
+    @PatchMapping("/{id}/cover-image")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponseDTO<HotelResponseDTO>> updateCoverImage(
+            @PathVariable Long id,
+            @RequestParam String imageUrl) {
+        return ResponseEntity.ok(
+                ApiResponseDTO.ok(
+                        hotelService.updateCoverImage(id, imageUrl),
+                        "Imagen de portada actualizada"));
     }
 }

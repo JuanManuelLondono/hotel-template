@@ -155,4 +155,12 @@ public class HotelService {
                 .totalReviews(hotel.getTotalReviews())
                 .build();
     }
+
+    @Transactional
+    public HotelResponseDTO updateCoverImage(Long hotelId, String imageUrl) {
+        Hotel hotel = hotelRepository.findById(hotelId)
+                .orElseThrow(() -> new EntityNotFoundException("Hotel no encontrado"));
+        hotel.setCoverImageUrl(imageUrl);
+        return toResponseDTO(hotelRepository.save(hotel));
+    }
 }
